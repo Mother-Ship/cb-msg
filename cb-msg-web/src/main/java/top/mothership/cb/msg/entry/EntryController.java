@@ -1,14 +1,14 @@
 package top.mothership.cb.msg.entry;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import top.mothership.cb.msg.context.CqMessageContext;
-import top.mothership.cb.msg.entry.cq.CqMessageProcessingContext;
+import top.mothership.cb.msg.entry.CqMessageProcessingContext;
 import top.mothership.cb.msg.enums.cq.Lv2Type;
 import top.mothership.cb.msg.enums.cq.Lv3Type;
 import top.mothership.cb.msg.model.BaseCqMessage;
@@ -19,11 +19,12 @@ public class EntryController {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private CqMessageProcessingContext cqMessageHandleContext;
+    private CqMessageProcessingContext cqMessageProcessContext;
 
 
     @PostMapping("/cq_entry")
-    public void cqEntry(@RequestBody String json) throws JsonProcessingException {
+    @SneakyThrows
+    public void cqEntry(@RequestBody String json) {
         var baseCqMessage = objectMapper.readValue(json, BaseCqMessage.class);
 
         Lv2Type lv2 = Lv2Type.findByParent(baseCqMessage);
@@ -36,7 +37,7 @@ public class EntryController {
 
         CqMessageContext.set(lv2, lv3, json);
 
-        var processor = cqMessageHandleContext.getProcessor(baseCqMessage);
+        var processor = cqMessageProcessContext.getProcessor();
         processor.process(json);
     }
 }

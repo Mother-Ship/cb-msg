@@ -19,8 +19,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Lv3Type {
     public static final Map<Lv2Type, List<Lv3Type>> VALUES = new LinkedHashMap<>();
-    @ApiModelProperty("精华消息增加")
-    public static Lv3Type ADD_ESSENCE_NOTIFY = new Lv3Type(Lv2Type.ESSENCE, "add");
+    @ApiModelProperty("普通消息")
+    public static Lv3Type NORMAL_GROUP_MESSAGE = new Lv3Type(Lv2Type.GROUP_MESSAGE, "normal");
+    @ApiModelProperty("匿名消息")
+    public static Lv3Type ANONYMOUS_GROUP_MESSAGE = new Lv3Type(Lv2Type.GROUP_MESSAGE, "anonymous");
+    @ApiModelProperty("群内消息提示")
+    public static Lv3Type NOTICE_GROUP_MESSAGE = new Lv3Type(Lv2Type.GROUP_MESSAGE, "notice");
     @ApiModelProperty("精华消息扇出")
     public static Lv3Type DELETE_ESSENCE_NOTIFY = new Lv3Type(Lv2Type.ESSENCE, "delete");
     @ApiModelProperty("设置群管理")
@@ -33,9 +37,9 @@ public class Lv3Type {
     public static Lv3Type KICK = new Lv3Type(Lv2Type.GROUP_DECREASE, "kick");
     @ApiModelProperty("本体被踢出")
     public static Lv3Type KICK_ME = new Lv3Type(Lv2Type.GROUP_DECREASE, "kick_me");
-    @ApiModelProperty("管理员审批入群")
+    @ApiModelProperty("管理员审批新成员入群")
     public static Lv3Type APPROVE = new Lv3Type(Lv2Type.GROUP_INCREASE, "approve");
-    @ApiModelProperty("邀请入群")
+    @ApiModelProperty("有新成员被邀请入群")
     public static Lv3Type INVITE = new Lv3Type(Lv2Type.GROUP_INCREASE, "invite");
     @ApiModelProperty("设置禁言")
     public static Lv3Type BAN = new Lv3Type(Lv2Type.GROUP_BAN, "ban");

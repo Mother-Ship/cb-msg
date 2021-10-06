@@ -1,6 +1,8 @@
 package top.mothership.cb.msg.entry.cq.processor.impl;
 
+import top.mothership.cb.msg.context.CqMessageContext;
 import top.mothership.cb.msg.entry.cq.processor.CqMessageProcessor;
+import top.mothership.cb.msg.enums.cq.Lv2Type;
 import top.mothership.cb.msg.model.BaseCqMessage;
 
 public class GroupMemberMutationProcessor implements CqMessageProcessor {
@@ -10,7 +12,8 @@ public class GroupMemberMutationProcessor implements CqMessageProcessor {
     }
 
     @Override
-    public boolean isFit(BaseCqMessage baseCqMessage) {
-        return false;
+    public boolean isFit() {
+        return CqMessageContext.getLv2Type() == Lv2Type.GROUP_INCREASE
+                || CqMessageContext.getLv2Type() == Lv2Type.GROUP_DECREASE;
     }
 }

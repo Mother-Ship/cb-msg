@@ -15,9 +15,9 @@ public class CqMessageProcessingContext {
     @Autowired
     private List<CqMessageProcessor> cqHandleList;
 
-    public CqMessageProcessor getProcessor(BaseCqMessage baseCqMessage) {
+    public CqMessageProcessor getProcessor() {
         for (CqMessageProcessor processor : cqHandleList) {
-            if (processor.isFit(baseCqMessage)) {
+            if (processor.isFit()) {
                 return processor;
             }
         }
