@@ -1,9 +1,10 @@
-package top.mothership.cb.msg.entry.cq;
+package top.mothership.cb.msg.cq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import top.mothership.cb.msg.entry.cq.processor.CqMessageProcessor;
+
+import top.mothership.cb.msg.cq.processor.CqMessageProcessor;
 import top.mothership.cb.msg.model.BaseCqMessage;
 
 import java.util.List;

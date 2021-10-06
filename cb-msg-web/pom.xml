@@ -17,12 +17,6 @@
     </properties>
     <dependencies>
 
-
-        <dependency>
-            <groupId>top.mothership</groupId>
-            <artifactId>cb-msg-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>top.mothership</groupId>
             <artifactId>cb-msg-biz</artifactId>

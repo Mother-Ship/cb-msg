@@ -1,4 +1,4 @@
-package top.mothership.cb.msg.entry.cq.processor;
+package top.mothership.cb.msg.cq.processor;
 
 import top.mothership.cb.msg.model.BaseCqMessage;
 

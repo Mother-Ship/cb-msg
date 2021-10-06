@@ -1,13 +1,13 @@
-package top.mothership.cb.msg.context;
+package top.mothership.cb.msg.cq.context;
 
 import top.mothership.cb.msg.enums.cq.Lv2Type;
 import top.mothership.cb.msg.enums.cq.Lv3Type;
 import top.mothership.cb.msg.enums.cq.PostType;
 
 public class CqMessageContext {
-    private static ThreadLocal<Lv2Type> lv2TypeTL = new ThreadLocal<>();
-    private static ThreadLocal<Lv3Type> lv3TypeTL = new ThreadLocal<>();
-    private static ThreadLocal<String> rawMessageTL = new ThreadLocal<>();
+    private static final ThreadLocal<Lv2Type> lv2TypeTL = new ThreadLocal<>();
+    private static final ThreadLocal<Lv3Type> lv3TypeTL = new ThreadLocal<>();
+    private static final ThreadLocal<String> rawMessageTL = new ThreadLocal<>();
 
     public static Lv2Type getLv2Type() {
         return lv2TypeTL.get();
