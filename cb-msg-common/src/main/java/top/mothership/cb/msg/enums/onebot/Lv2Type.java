@@ -1,11 +1,11 @@
-package top.mothership.cb.msg.enums.cq;
+package top.mothership.cb.msg.enums.onebot;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import top.mothership.cb.msg.model.BaseCqMessage;
+import top.mothership.cb.msg.model.onebot.event.BaseOneBotEvent;
 import top.mothership.cb.msg.utils.CbEnumUtil;
 
 import java.lang.reflect.Field;
@@ -13,7 +13,7 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static top.mothership.cb.msg.enums.cq.PostType.*;
+import static top.mothership.cb.msg.enums.onebot.PostType.*;
 
 @Getter
 @ToString
@@ -76,8 +76,8 @@ public class Lv2Type {
 
     private final String name;
 
-    public static Lv2Type findByParent(BaseCqMessage baseCqMessage) {
-        PostType postType = CbEnumUtil.getCqType(PostType.class, baseCqMessage.getPostType());
+    public static Lv2Type findByParent(BaseOneBotEvent baseOneBotEvent) {
+        PostType postType = CbEnumUtil.getOneBotEnum(PostType.class, baseOneBotEvent.getPostType());
 
         if (postType == null) {
             return null;
@@ -87,13 +87,13 @@ public class Lv2Type {
         String lv2TypeRaw = null;
         switch (postType) {
             case REQUEST:
-                lv2TypeRaw = baseCqMessage.getRequestType();
+                lv2TypeRaw = baseOneBotEvent.getRequestType();
                 break;
             case NOTICE:
-                lv2TypeRaw = baseCqMessage.getNoticeType();
+                lv2TypeRaw = baseOneBotEvent.getNoticeType();
                 break;
             case MESSAGE:
-                lv2TypeRaw = baseCqMessage.getMessageType();
+                lv2TypeRaw = baseOneBotEvent.getMessageType();
                 break;
         }
 

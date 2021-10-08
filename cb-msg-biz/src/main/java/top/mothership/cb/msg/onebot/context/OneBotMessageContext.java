@@ -1,10 +1,9 @@
-package top.mothership.cb.msg.cq.context;
+package top.mothership.cb.msg.onebot.context;
 
-import top.mothership.cb.msg.enums.cq.Lv2Type;
-import top.mothership.cb.msg.enums.cq.Lv3Type;
-import top.mothership.cb.msg.enums.cq.PostType;
+import top.mothership.cb.msg.enums.onebot.Lv2Type;
+import top.mothership.cb.msg.enums.onebot.Lv3Type;
 
-public class CqMessageContext {
+public class OneBotMessageContext {
     private static final ThreadLocal<Lv2Type> lv2TypeTL = new ThreadLocal<>();
     private static final ThreadLocal<Lv3Type> lv3TypeTL = new ThreadLocal<>();
     private static final ThreadLocal<String> rawMessageTL = new ThreadLocal<>();

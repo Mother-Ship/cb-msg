@@ -2,7 +2,7 @@ package top.mothership.cb.msg.regex;
 
 import java.util.regex.Pattern;
 
-public class CqMessagePattern {
+public class OneBotMessagePattern {
     /**
      * 匹配所有非汉字、字母、数字字符；用于复读禁言时去除干扰文本
      */

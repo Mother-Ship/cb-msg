@@ -1,17 +1,19 @@
-package top.mothership.cb.msg.model;
+package top.mothership.cb.msg.model.onebot.event;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import top.mothership.cb.msg.enums.onebot.GroupMemberRole;
+import top.mothership.cb.msg.utils.CbEnumUtil;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class GroupMessage extends BaseCqMessage {
+public class GroupMessageEvent extends BaseOneBotEvent {
     @ApiModelProperty("消息ID")
     private Integer messageId;
     @ApiModelProperty("群ID")
     private Long groupId;
-    @ApiModelProperty("发送人")
+    @ApiModelProperty("发送人QQ")
     private Long userId;
     @ApiModelProperty("消息体")
     private String message;
@@ -19,4 +21,12 @@ public class GroupMessage extends BaseCqMessage {
     private String text;
     @ApiModelProperty("消息体命令部分，感叹号开头空格结束的文本")
     private String command;
+    @ApiModelProperty("发送人信息对象")
+    private Sender sender;
+
+    public boolean isSendByAdmin(){
+        return sender !=null
+                && GroupMemberRole.ADMIN.equals(
+                        CbEnumUtil.getOneBotEnum(GroupMemberRole.class, sender.getRole()));
+    }
 }

@@ -1,14 +1,10 @@
-package top.mothership.cb.msg.model;
+package top.mothership.cb.msg.model.onebot.event;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import top.mothership.cb.msg.enums.cq.PostType;
-import top.mothership.cb.msg.utils.CbEnumUtil;
-
-import java.util.Objects;
 
 @Data
-public class BaseCqMessage {
+public class BaseOneBotEvent {
     @ApiModelProperty("主类型")
     private String postType;
 

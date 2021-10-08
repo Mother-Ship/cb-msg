@@ -1,4 +1,4 @@
-package top.mothership.cb.msg.enums.cq;
+package top.mothership.cb.msg.enums.onebot;
 
 import io.swagger.annotations.ApiModelProperty;
 

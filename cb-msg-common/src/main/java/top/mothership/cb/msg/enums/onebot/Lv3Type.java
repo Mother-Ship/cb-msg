@@ -1,4 +1,4 @@
-package top.mothership.cb.msg.enums.cq;
+package top.mothership.cb.msg.enums.onebot;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
-import top.mothership.cb.msg.model.BaseCqMessage;
+import top.mothership.cb.msg.model.onebot.event.BaseOneBotEvent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -75,12 +75,12 @@ public class Lv3Type {
     private final Lv2Type parent;
     private final String name;
 
-    public static Lv3Type findByParent(BaseCqMessage baseCqMessage) {
-        Lv2Type lv2Type = Lv2Type.findByParent(baseCqMessage);
+    public static Lv3Type findByParent(BaseOneBotEvent baseOneBotEvent) {
+        Lv2Type lv2Type = Lv2Type.findByParent(baseOneBotEvent);
         if (lv2Type == null) {
             return null;
         }
-        String lv3TypeRaw = baseCqMessage.getSubType();
+        String lv3TypeRaw = baseOneBotEvent.getSubType();
 
         List<Lv3Type> list = VALUES.get(lv2Type);
 
