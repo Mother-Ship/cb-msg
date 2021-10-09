@@ -3,6 +3,7 @@ package top.mothership.cb.msg.onebot.processor.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.mothership.cb.msg.enums.onebot.Lv2Type;
@@ -26,12 +27,12 @@ public class GroupMessageProcessor implements OneBotMessageProcessor {
     @SneakyThrows
     @Override
     public void process(String rawMessage) {
-        GroupMessageEvent event = objectMapper.readValue(rawMessage, GroupMessageEvent.class);
+        val event = objectMapper.readValue(rawMessage, GroupMessageEvent.class);
 
         event.setText(OneBotMessagePattern.CQ_CODE.matcher(event.getMessage()).replaceAll(""));
-        repeatQueue.put(event);
+        repeatQueue.tryPut(event);
 
-        GroupMessageAction action = GroupMessageAction
+        val action = GroupMessageAction
                 .fromSourceEvent(event)
                 .message(event.getMessage())
                 .build();

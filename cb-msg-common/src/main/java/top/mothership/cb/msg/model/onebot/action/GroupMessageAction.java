@@ -12,6 +12,9 @@ import top.mothership.cb.msg.model.onebot.event.GroupMessageEvent;
 public class GroupMessageAction extends BaseOneBotAction {
     private Long groupId;
     private String message;
+
+
+    @SuppressWarnings("rawtypes")
     public static GroupMessageActionBuilder fromSourceEvent(GroupMessageEvent event){
         return GroupMessageAction.builder()
                 .groupId(event.getGroupId())
