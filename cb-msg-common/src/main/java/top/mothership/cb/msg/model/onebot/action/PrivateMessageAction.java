@@ -2,11 +2,12 @@ package top.mothership.cb.msg.model.onebot.action;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SendingGroupBan extends BaseOneBotAction {
-    private Long groupId;
+@SuperBuilder
+public class PrivateMessageAction extends BaseOneBotAction {
     private Long userId;
-    private Integer duration;
+    private String message;
 }

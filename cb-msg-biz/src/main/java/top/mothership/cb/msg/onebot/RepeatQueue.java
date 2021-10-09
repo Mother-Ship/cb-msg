@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import top.mothership.cb.msg.model.onebot.event.GroupMessageEvent;
 import top.mothership.cb.msg.regex.OneBotMessagePattern;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +25,10 @@ import java.util.stream.Collectors;
 @RefreshScope
 public class RepeatQueue {
     private static final String COLONS = ":";
-    @Value("onebot.repeat.smoke")
-    private Map<String,Integer> repeatSmokeConfig;
-
-    @Autowired
+    @Resource(name="redisTemplate")
     private ListOperations<String, GroupMessageEvent> listOps;
 
-    @Autowired
+    @Resource(name="redisTemplate")
     private HashOperations<String, String, Integer> hashOps;
 
     @Autowired

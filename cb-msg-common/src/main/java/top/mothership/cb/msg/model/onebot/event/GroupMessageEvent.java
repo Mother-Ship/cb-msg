@@ -1,5 +1,6 @@
 package top.mothership.cb.msg.model.onebot.event;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,8 @@ public class GroupMessageEvent extends BaseOneBotEvent {
     private String command;
     @ApiModelProperty("发送人信息对象")
     private Sender sender;
+    @ApiModelProperty("收消息的QQ")
+    private Long selfId;
 
     public boolean isSendByAdmin(){
         return sender !=null

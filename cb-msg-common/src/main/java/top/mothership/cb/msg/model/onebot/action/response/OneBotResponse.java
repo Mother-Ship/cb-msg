@@ -1,4 +1,4 @@
-package top.mothership.cb.msg.model.onebot;
+package top.mothership.cb.msg.model.onebot.action.response;
 
 
 import com.fasterxml.jackson.annotation.JsonAlias;
