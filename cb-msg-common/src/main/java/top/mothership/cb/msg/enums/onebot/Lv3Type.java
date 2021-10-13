@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import top.mothership.cb.msg.model.onebot.event.BaseOneBotEvent;
+import top.mothership.cb.msg.utils.ReflectionUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -58,17 +59,7 @@ public class Lv3Type {
     public static Lv3Type INVITE_REQUEST = new Lv3Type(Lv2Type.GROUP_REQUEST, "invite");
 
     static {
-        Field[] fields = Lv3Type.class.getFields();
-        List<Lv3Type> tempList = new ArrayList<>(fields.length);
-        for (Field field : fields) {
-            if (Modifier.isPublic(field.getModifiers())) {
-                try {
-                    if (field.get(null) instanceof Lv3Type)
-                        tempList.add((Lv3Type) field.get(null));
-                } catch (IllegalAccessException ignore) {
-                }
-            }
-        }
+        List<Lv3Type> tempList = ReflectionUtil.getAllThisTypePublicFields(Lv3Type.class);
         VALUES.putAll(tempList.stream().collect(Collectors.groupingBy(Lv3Type::getParent)));
     }
 

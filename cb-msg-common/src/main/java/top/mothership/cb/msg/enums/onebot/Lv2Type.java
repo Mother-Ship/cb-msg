@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import top.mothership.cb.msg.model.onebot.event.BaseOneBotEvent;
 import top.mothership.cb.msg.utils.CbEnumUtil;
+import top.mothership.cb.msg.utils.ReflectionUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -58,19 +59,13 @@ public class Lv2Type {
     public static Lv2Type FRIEND_REQUEST = new Lv2Type(REQUEST, "friend");
 
     static {
-        Field[] fields = Lv2Type.class.getFields();
-        List<Lv2Type> tempList = new ArrayList<>(fields.length);
-        for (Field field : fields) {
-            if (Modifier.isPublic(field.getModifiers())) {
-                try {
-                    if (field.get(null) instanceof Lv2Type)
-                        tempList.add((Lv2Type) field.get(null));
-                } catch (IllegalAccessException ignore) {
-                }
-            }
-        }
-        VALUES.putAll(tempList.stream().collect(Collectors.groupingBy(Lv2Type::getParent)));
+        //将所有Lv2Type 分组
+        List<Lv2Type> tempList = ReflectionUtil.getAllThisTypePublicFields(Lv2Type.class);
+        VALUES.putAll(tempList.stream()
+                .collect(Collectors.groupingBy(Lv2Type::getParent)));
     }
+
+
 
     private final PostType parent;
 

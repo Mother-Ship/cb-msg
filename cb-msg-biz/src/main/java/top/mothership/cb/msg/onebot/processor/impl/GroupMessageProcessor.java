@@ -6,6 +6,8 @@ import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import top.mothership.cb.CbCmdService;
+import top.mothership.cb.cmd.model.response.CbCmdResponse;
 import top.mothership.cb.msg.enums.onebot.Lv2Type;
 import top.mothership.cb.msg.model.onebot.action.GroupMessageAction;
 import top.mothership.cb.msg.model.onebot.event.GroupMessageEvent;
@@ -23,6 +25,8 @@ public class GroupMessageProcessor implements OneBotMessageProcessor {
     private RepeatQueue repeatQueue;
     @Autowired
     private OneBotClient oneBotClient;
+    @Autowired
+    private CbCmdService cbCmdService;
 
     @SneakyThrows
     @Override
@@ -32,9 +36,10 @@ public class GroupMessageProcessor implements OneBotMessageProcessor {
         event.setText(OneBotMessagePattern.CQ_CODE.matcher(event.getMessage()).replaceAll(""));
         repeatQueue.tryPut(event);
 
+        CbCmdResponse response = cbCmdService.cmd(event.getText());
         val action = GroupMessageAction
                 .fromSourceEvent(event)
-                .message(event.getMessage())
+                .message(response.getText())
                 .build();
         oneBotClient.sendGroupMessage(action);
 
