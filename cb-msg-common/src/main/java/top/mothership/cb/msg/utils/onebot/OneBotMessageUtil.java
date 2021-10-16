@@ -3,9 +3,9 @@ package top.mothership.cb.msg.utils.onebot;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import top.mothership.cb.cmd.enums.MediaEntityType;
 import top.mothership.cb.cmd.model.response.CbCmdResponse;
 import top.mothership.cb.cmd.model.response.MediaEntity;
@@ -26,6 +26,18 @@ public class OneBotMessageUtil {
         }
 
         StringBuilder text = new StringBuilder(response.getText());
+
+        //处理纯图片逻辑
+        if (!StringUtils.hasText(text)){
+            text = new StringBuilder();
+            for (MediaEntity media : response.getMedia()) {
+                String cqCode = getCqCodeByMedia(media);
+                text.append(cqCode);
+            }
+            return text.toString();
+        }
+
+
         List<Integer> indexList = response.getMedia().stream().map(MediaEntity::getIndex).collect(Collectors.toList());
         //拆分字符串
         List<String> textShard= new ArrayList<>();
@@ -34,6 +46,7 @@ public class OneBotMessageUtil {
             textShard.add(text.substring(lastIndex,index));
             lastIndex = index;
         }
+
         //生成CQ码并拼接入字符串
         var i = textShard.iterator();
         text = new StringBuilder(i.next());
@@ -54,15 +67,10 @@ public class OneBotMessageUtil {
         out.close();
 
         val type = CbEnumUtil.getEnumOrException(MediaEntityType.class, entity.getType());
-        switch (type) {
-            case IMAGE:
-                return "[CQ:image,file=file:///"+file.getAbsolutePath()+"]";
-            case VOICE:
-                return "[CQ:record,file=file:///"+file.getAbsolutePath()+"]";
-            default:
-                return null;
-        }
-        return null;
+        return switch (type) {
+            case IMAGE -> "[CQ:image,file=file:///" + file.getAbsolutePath() + "]";
+            case VOICE -> "[CQ:record,file=file:///" + file.getAbsolutePath() + "]";
+        };
     }
 
     public static String getAtCqCode(Long qq){
