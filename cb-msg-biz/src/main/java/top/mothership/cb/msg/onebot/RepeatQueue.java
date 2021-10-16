@@ -16,6 +16,7 @@ import top.mothership.cb.msg.model.onebot.event.GroupMessageEvent;
 import top.mothership.cb.msg.onebot.client.OneBotClient;
 import top.mothership.cb.msg.onebot.config.RepeatSmokeConfig;
 import top.mothership.cb.msg.regex.OneBotMessagePattern;
+import top.mothership.cb.msg.utils.onebot.OneBotMessageUtil;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -92,8 +93,8 @@ public class RepeatQueue {
                     val messageAction = GroupMessageAction.builder()
                             .groupId(message.getGroupId())
                             .selfId(message.getSelfId())
-                            .message("[CQ:at,qq=" + oneBotClient.getOwner(message.getGroupId()) + "] " +
-                                    "检测到群管" + "[CQ:at,qq=" + message.getUserId() + "] 复读。")
+                            .message(OneBotMessageUtil.getAtCqCode(oneBotClient.getOwner(message.getGroupId()))
+                                    + "检测到群管" + OneBotMessageUtil.getAtCqCode(message.getUserId()) + " 复读。")
                             .build();
                     System.out.println(oneBotClient.sendGroupMessage(messageAction));
                 } else {

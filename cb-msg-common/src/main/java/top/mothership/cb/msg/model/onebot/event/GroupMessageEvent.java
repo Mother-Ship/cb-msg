@@ -29,6 +29,6 @@ public class GroupMessageEvent extends BaseOneBotEvent {
     public boolean isSendByAdmin(){
         return sender !=null
                 && GroupMemberRole.ADMIN.equals(
-                        CbEnumUtil.getOneBotEnum(GroupMemberRole.class, sender.getRole()));
+                        CbEnumUtil.getOneBotEnumOrNull(GroupMemberRole.class, sender.getRole()));
     }
 }

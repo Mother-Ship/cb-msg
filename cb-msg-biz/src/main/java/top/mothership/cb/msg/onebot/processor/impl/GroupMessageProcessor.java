@@ -16,6 +16,7 @@ import top.mothership.cb.msg.onebot.client.OneBotClient;
 import top.mothership.cb.msg.onebot.context.OneBotMessageContext;
 import top.mothership.cb.msg.onebot.processor.OneBotMessageProcessor;
 import top.mothership.cb.msg.regex.OneBotMessagePattern;
+import top.mothership.cb.msg.utils.onebot.OneBotMessageUtil;
 
 @Component
 public class GroupMessageProcessor implements OneBotMessageProcessor {
@@ -37,9 +38,14 @@ public class GroupMessageProcessor implements OneBotMessageProcessor {
         repeatQueue.tryPut(event);
 
         CbCmdResponse response = cbCmdService.cmd(event.getText());
+
+        if (response == null || response.isEmpty()){
+            return;
+        }
+
         val action = GroupMessageAction
                 .fromSourceEvent(event)
-                .message(response.getText())
+                .message(OneBotMessageUtil.toCqCode(response))
                 .build();
         oneBotClient.sendGroupMessage(action);
 

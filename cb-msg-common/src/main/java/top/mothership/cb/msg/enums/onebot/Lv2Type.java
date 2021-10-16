@@ -9,8 +9,6 @@ import top.mothership.cb.msg.model.onebot.event.BaseOneBotEvent;
 import top.mothership.cb.msg.utils.CbEnumUtil;
 import top.mothership.cb.msg.utils.ReflectionUtil;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,7 +70,7 @@ public class Lv2Type {
     private final String name;
 
     public static Lv2Type findByParent(BaseOneBotEvent baseOneBotEvent) {
-        PostType postType = CbEnumUtil.getOneBotEnum(PostType.class, baseOneBotEvent.getPostType());
+        PostType postType = CbEnumUtil.getOneBotEnumOrNull(PostType.class, baseOneBotEvent.getPostType());
 
         if (postType == null) {
             return null;

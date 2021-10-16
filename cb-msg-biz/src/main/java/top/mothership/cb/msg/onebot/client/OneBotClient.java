@@ -20,7 +20,6 @@ import top.mothership.cb.msg.utils.CbEnumUtil;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Component
 @Slf4j
@@ -100,7 +99,7 @@ public class OneBotClient {
         val member = members.getData().stream()
                 .filter(i ->
                         GroupMemberRole.OWNER.equals(
-                                CbEnumUtil.getOneBotEnum(GroupMemberRole.class, i.getRole())))
+                                CbEnumUtil.getOneBotEnumOrNull(GroupMemberRole.class, i.getRole())))
                 .findFirst();
         if (member.isEmpty()) {
             return null;
